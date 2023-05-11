@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách khóa học</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/templatemo.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/custom.css}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <!--  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">-->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/fontawesome.min.css}">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-light shadow">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <a class="navbar-brand text-success logo h1 align-self-center m-2">
+            SM System
+        </a>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+            <div class="flex-fill">
+                <ul class="nav navbar-nav mx-lg-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/student/courses/' + ${registration.student.id}}">Danh sách khóa học</a>
+                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="contact.html">Khóa học yêu thích</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="contact.html">Thông tin của bạn</a>-->
+<!--                    </li>-->
+                </ul>
+            </div>
+        </div>
+        <div class="navbar align-self-center d-flex">
+            <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/exitstu}">Thoát</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Close Header -->
+    <div class="container-fluid">
+        <div class="text-center"><h1>[[${pageTitle}]]</h1></div>
+        <form th:action="@{/registration/save}"  th:object="${registration}" method="post"
+                                          style="max-width: 500px; margin: 0 auto;">
+            <input type="hidden" th:field="*{student.id}"/>
+            <input type="hidden" th:field="*{course.id}"/>
+            <div class="border border-secondary rounded p-3">
+                <div class="form-group row mb-2">
+                    <label class="col-sm-4 col-form-label">Lớp:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{student.className}" class="form-control" required />
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-sm-4 col-form-label">Mã sinh viên:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{student.msv}" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-sm-4 col-form-label">Họ:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{student.lastName}" class="form-control" required minlength="2" maxlength="45"/>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-sm-4 col-form-label">Tên:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{student.firstName}" class="form-control" required minlength="2" maxlength="45"/>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-sm-4 col-form-label">Email:</label>
+                    <div class="col-sm-8">
+                        <input type="email" th:field="*{student.email}" class="form-control" required minlength="8" maxlength="45"/>
+                    </div>
+                </div>
+<!--                <div class="form-group row mb-2">-->
+<!--                    <label class="col-sm-4 col-form-label">Mật khẩu:</label>-->
+<!--                    <div class="col-sm-8">-->
+<!--                        <input type="text" th:field="*{student.password}" class="form-control"required minlength="3" maxlength="15"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-group row mb-2">-->
+<!--                    <label class="col-sm-4 col-form-label">Giới tính: </label>-->
+<!--                    <div class="col-sm-8">-->
+<!--                        <div class="form-check form-check-inline m-2">-->
+<!--                            <input class="form-check-input" type="radio" name="gender" id="male" value="1">-->
+<!--                            <label class="form-check-label" for="male">Nam</label>-->
+<!--                        </div>-->
+<!--                        <div class="form-check form-check-inline m-2">-->
+<!--                            <input class="form-check-input" type="radio" name="gender" id="female" value="0">-->
+<!--                            <label class="form-check-label" for="female">Nữ</label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="form-group row mb-2">
+                    <label class="col-sm-4 col-form-label">Khóa học:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="${registration.course.name}" class="form-control"required minlength="3" maxlength="15"/>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-sm-4 col-form-label">Giảng viên:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="${registration.course.teacherName}" class="form-control"required minlength="3" maxlength="15"/>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-sm-4 col-form-label">Còn trống:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="${registration.course.maxQuantity}" class="form-control"required minlength="3" maxlength="15"/>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-sm-4 col-form-label">Học phí:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="${registration.course.price}" class="form-control"required minlength="3" maxlength="15"/>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary m-2">Xác nhận</button>
+                    <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">Hủy</button>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+<script th:inline="javascript">
+    setTimeout(function() {
+        document.querySelector('.alert').style.display = 'none';
+    }, 3000);
+</script>
+<script type="text/javascript">
+    function cancelForm(){
+        // window.location ="/student/courses/" + ${student.id};
+    }
+</script>
+</body>
+</html>

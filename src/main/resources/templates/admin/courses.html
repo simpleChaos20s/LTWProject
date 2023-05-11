@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách khóa học</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/templatemo.css}">
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/custom.css}">
+
+  <!-- Load fonts style after rendering the layout styles -->
+<!--  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">-->
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/fontawesome.min.css}">
+
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-light shadow">
+  <div class="container d-flex justify-content-between align-items-center">
+
+    <a class="navbar-brand text-success logo h1 align-self-center m-2" th:href="@{/adhome}">
+      SM System
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+      <div class="flex-fill">
+        <ul class="nav navbar-nav mx-lg-auto">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/students}">Danh sách sinh viên</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/students/new}">Thêm sinh viên</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/courses}">Danh sách khóa học</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/courses/new}">Thêm khóa học</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="navbar align-self-center d-flex">
+      <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/exitad}">Thoát</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Close Header -->
+<div class="container-fluid text-center">
+  <div class="m-4 mb-5 mt-10"><h2>Quản lý khóa học</h2></div>
+
+  <div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+  </div>
+  <div>
+    <table class="table table-bordered">
+      <thead class="bg-light text-dark">
+      <tr>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Giảng Viên</th>
+        <th>Còn trống</th>
+        <th>Giá</th>
+        <th>Sinh viên đăng kí</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <th:block th:each="course: ${listCourses}">
+        <tr>
+          <td>[[${course.id}]]</td>
+          <td>[[${course.name}]]</td>
+          <td>[[${course.teacherName}]]</td>
+          <td>[[${course.maxQuantity}]]</td>
+          <td>[[${course.price}]]</td>
+          <td><a class="mr-10" th:href="@{'/courses/registers/' + ${course.id}}">Danh sách</a></td>
+          <td>
+            <a class="" th:href="@{'/courses/edit/' + ${course.id}}">Sửa</a>
+            <a class="" th:href="@{'/courses/delete/' + ${course.id}}">Xóa</a>
+          </td>
+        </tr>
+      </th:block>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script th:inline="javascript">
+  setTimeout(function() {
+    document.querySelector('.alert').style.display = 'none';
+  }, 3000);
+</script>
+
+</body>
+</html>
